@@ -11,6 +11,14 @@ Arquivo config.json
 }
 ```
 
+Dependencias
+
+- ctags
+
+```shell
+sudo apt-get install universal-ctags
+```
+
 # RULES
 
 ### MEMBER_NOT_INITIALIZED_IN_HEADER
