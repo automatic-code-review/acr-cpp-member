@@ -1,7 +1,8 @@
-import hashlib
 import json
 import os
 import subprocess
+
+import automatic_code_review_commons as commons
 
 
 def review(config):
@@ -70,12 +71,11 @@ Atributos: {attrs_append}<br>
 Arquivo: {path_internal}"""
 
         comments.append(
-            __create_comment(
-                comment_id=__generate_md5(comment),
-                comment=comment,
-                start_line=1,
-                end_line=1,
-                path=path_internal,
+            commons.comment_create(
+                comment_id=commons.comment_generate_id(comment),
+                comment_path=path_internal,
+                comment_description=comment,
+                comment_language='c++'
             )
         )
 
@@ -87,33 +87,12 @@ Atributos: {attrs_append}<br>
 Arquivo: {path_internal}"""
 
         comments.append(
-            __create_comment(
-                comment_id=__generate_md5(comment),
-                comment=comment,
-                start_line=1,
-                end_line=1,
-                path=path_internal,
+            commons.comment_create(
+                comment_id=commons.comment_generate_id(comment),
+                comment_path=path_internal,
+                comment_description=comment,
+                comment_language='c++'
             )
         )
 
     return comments
-
-
-def __create_comment(comment_id, comment, path, start_line, end_line):
-    return {
-        "id": comment_id,
-        "comment": comment,
-        "position": {
-            "language": 'c++',
-            "path": path,
-            "startInLine": start_line,
-            "endInLine": end_line,
-            "snipset": False
-        }
-    }
-
-
-def __generate_md5(string):
-    md5_hash = hashlib.md5()
-    md5_hash.update(string.encode('utf-8'))
-    return md5_hash.hexdigest()
